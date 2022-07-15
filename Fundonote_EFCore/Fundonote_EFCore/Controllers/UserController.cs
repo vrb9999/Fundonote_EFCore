@@ -7,13 +7,16 @@ namespace Fundonote_EFCore.Controllers
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Security.Claims;
     using System.Threading.Tasks;
     using BusinessLayer.Interface;
     using DatabaseLayer.Entities;
     using DatabaseLayer.UserModels;
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using NLogger.Interface;
     using RepositoryLayer.Services;
+    using RepositoryLayer.Services.Entities;
 
     [Route("[controller]")]
     [ApiController]
@@ -42,6 +45,23 @@ namespace Fundonote_EFCore.Controllers
             catch (Exception ex)
             {
                 this.logger.LogError($"User Registration Failed: {userPostModel.Email}");
+                throw ex;
+            }
+        }
+
+        [HttpGet("GetAllUser")]
+        public IActionResult GetAllUser()
+        {
+            try
+            {
+                this.logger.LogInfo("Fetched all users");
+                List<User> getUsers = new List<User>();
+                getUsers = this.userBL.GetAllUsers();
+                return this.Ok(new { success = true, Message = "Get all users fetched", data = getUsers });
+            }
+            catch (Exception ex)
+            {
+                this.logger.LogError("Failed to fetch all users");
                 throw ex;
             }
         }

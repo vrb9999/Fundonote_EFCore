@@ -14,7 +14,6 @@ namespace DatabaseLayer.Entities
         public FundoContext(DbContextOptions options)
             : base(options)
         {
-
         }
 
         // Users - table name ; User - Entity class

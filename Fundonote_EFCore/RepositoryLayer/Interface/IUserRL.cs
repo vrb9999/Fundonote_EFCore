@@ -8,9 +8,12 @@ namespace RepositoryLayer.Interface
     using System.Collections.Generic;
     using System.Text;
     using DatabaseLayer.UserModels;
+    using RepositoryLayer.Services.Entities;
 
     public interface IUserRL
     {
         public void AddUser(UserPostModel userPostModel);
+
+        public List<User> GetAllUsers();
     }
 }

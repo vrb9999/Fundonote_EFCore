@@ -10,6 +10,7 @@ namespace BusinessLayer.Services
     using BusinessLayer.Interface;
     using DatabaseLayer.UserModels;
     using RepositoryLayer.Interface;
+    using RepositoryLayer.Services.Entities;
 
     public class UserBL : IUserBL
     {
@@ -25,6 +26,18 @@ namespace BusinessLayer.Services
             try
             {
                 this.userRL.AddUser(userPostModel);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public List<User> GetAllUsers()
+        {
+            try
+            {
+                return this.userRL.GetAllUsers();
             }
             catch (Exception ex)
             {

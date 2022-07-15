@@ -1,1 +1,5 @@
-﻿
+﻿2022-07-15 12:12:13.9844|INFO|NLogger.Services.LoggerManager|User cred Email : vinay@gmail.com
+2022-07-15 12:40:08.8144|INFO|NLogger.Services.LoggerManager|User Registration Email : harsha@gmail.com
+2022-07-15 15:48:55.6283|INFO|NLogger.Services.LoggerManager|User Registration Email : ganesh@gmail.com
+2022-07-15 15:49:55.3397|INFO|NLogger.Services.LoggerManager|User cred Email : vinay@gmail.com
+2022-07-15 20:10:11.1763|INFO|NLogger.Services.LoggerManager|Fetched all users

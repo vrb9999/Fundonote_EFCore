@@ -6,10 +6,15 @@ namespace RepositoryLayer.Services
 {
     using System;
     using System.Collections.Generic;
+    using System.IdentityModel.Tokens.Jwt;
+    using System.Linq;
+    using System.Security.Claims;
     using System.Text;
     using DatabaseLayer.Entities;
     using DatabaseLayer.UserModels;
+    using Experimental.System.Messaging;
     using Microsoft.Extensions.Configuration;
+    using Microsoft.IdentityModel.Tokens;
     using RepositoryLayer.Interface;
     using RepositoryLayer.Services.Entities;
 
@@ -39,6 +44,18 @@ namespace RepositoryLayer.Services
 
                 this.fundoContext.Add(user);
                 this.fundoContext.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public List<User> GetAllUsers()
+        {
+            try
+            {
+                return this.fundoContext.Users.ToList();
             }
             catch (Exception ex)
             {

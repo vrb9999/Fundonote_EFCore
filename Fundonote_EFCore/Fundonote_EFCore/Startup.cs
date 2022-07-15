@@ -84,9 +84,7 @@ namespace Fundonote_EFCore
                 {
                     { jwtSecurityScheme, Array.Empty<string>() },
                 });
-
-                }
-                    );
+                });
             services.AddSingleton<ILoggerManager, LoggerManager>();
             services.AddTransient<IUserRL, UserRL>();
             services.AddTransient<IUserBL, UserBL>();
