@@ -81,5 +81,28 @@ namespace Fundonote_EFCore.Controllers
                 throw ex;
             }
         }
+
+        [HttpPost("ForgetPasswordUser/{email}")]
+        public IActionResult ForgetPasswordUser(string email)
+        {
+            try
+            {
+                this.logger.LogInfo($"Reset link sent to : {email}");
+                bool isExist = this.userBL.ForgetPasswordUser(email);
+                if (isExist)
+                {
+                    return this.Ok(new { success = true, message = $"Reset link sent to {email}" });
+                }
+                else
+                {
+                    return this.BadRequest(new { success = false, message = $"No user Exist with {email}" });
+                }
+            }
+            catch (Exception ex)
+            {
+                this.logger.LogError($"User cred Failed: {email}");
+                throw ex;
+            }
+        }
     }
 }
