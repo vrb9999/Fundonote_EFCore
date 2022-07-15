@@ -65,5 +65,21 @@ namespace Fundonote_EFCore.Controllers
                 throw ex;
             }
         }
+
+        [HttpPost("LoginUser")]
+        public IActionResult LoginUser(UserLoginModel userLoginModel)
+        {
+            try
+            {
+                this.logger.LogInfo($"User cred Email : {userLoginModel.Email}");
+                string token = this.userBL.LoginUser(userLoginModel);
+                return this.Ok(new { success = true, Message = "User Login Sucessfull", data = token });
+            }
+            catch (Exception ex)
+            {
+                this.logger.LogError($"User cred Failed: {userLoginModel.Email}");
+                throw ex;
+            }
+        }
     }
 }

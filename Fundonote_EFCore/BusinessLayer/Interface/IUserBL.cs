@@ -15,5 +15,7 @@ namespace BusinessLayer.Interface
         public void AddUser(UserPostModel userPostModel);
 
         public List<User> GetAllUsers();
+
+        public string LoginUser(UserLoginModel loginUser);
     }
 }

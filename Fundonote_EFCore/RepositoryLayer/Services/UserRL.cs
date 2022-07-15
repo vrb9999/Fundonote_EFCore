@@ -62,5 +62,50 @@ namespace RepositoryLayer.Services
                 throw ex;
             }
         }
+
+        public string LoginUser(UserLoginModel loginUser)
+        {
+            try
+            {
+                var user = this.fundoContext.Users.Where(x => x.Email == loginUser.Email && x.Password == loginUser.Password).FirstOrDefault();
+                if (user == null)
+                {
+                    return null;
+                }
+
+                return this.GenerateJWTToken(loginUser.Email, user.UserId);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        private string GenerateJWTToken(string email, int UserId)
+        {
+            try
+            {
+                // generate token
+                var tokenHandler = new JwtSecurityTokenHandler();
+                var tokenKey = Encoding.ASCII.GetBytes("THIS_IS_MY_KEY_TO_GENERATE_TOKEN");
+                var tokenDescriptor = new SecurityTokenDescriptor
+                {
+                    Subject = new ClaimsIdentity(new Claim[]
+                    {
+                    new Claim("Email", email),
+                    new Claim("UserId",UserId.ToString()),
+                    }),
+                    Expires = DateTime.UtcNow.AddHours(2),
+
+                    SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(tokenKey), SecurityAlgorithms.HmacSha256Signature),
+                };
+                var token = tokenHandler.CreateToken(tokenDescriptor);
+                return tokenHandler.WriteToken(token);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 }
