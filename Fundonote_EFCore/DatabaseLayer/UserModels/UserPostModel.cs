@@ -12,11 +12,11 @@ namespace DatabaseLayer.UserModels
     public class UserPostModel
     {
         [Required]
-        [RegularExpression("[A-Z]{1}[a-z]{3,}", ErrorMessage = "Please Enter for Firstname Atleast 3 character with first letter capital")]
+        [RegularExpression("[A-Z]{1}[a-z]{3,20}", ErrorMessage = "Please Enter for Firstname Atleast 3 character with first letter capital")]
         public string FirstName { get; set; }
 
         [Required]
-        [RegularExpression("[A-Z]{1}[a-z]{3,}", ErrorMessage = "Please Enter for LastName Atleast 3 character with first letter capital")]
+        [RegularExpression("[A-Z]{1}[a-z]{3,20}", ErrorMessage = "Please Enter for LastName Atleast 3 character with first letter capital")]
         public string LastName { get; set; }
 
         [Required]

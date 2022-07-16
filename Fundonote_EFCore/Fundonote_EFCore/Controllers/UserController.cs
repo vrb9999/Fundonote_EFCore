@@ -45,7 +45,7 @@ namespace Fundonote_EFCore.Controllers
             catch (Exception ex)
             {
                 this.logger.LogError($"User Registration Failed: {userPostModel.Email}");
-                throw ex;
+                return this.BadRequest(new { success = false, Message = "User Registration Failed" });
             }
         }
 

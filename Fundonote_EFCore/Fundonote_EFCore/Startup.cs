@@ -42,7 +42,7 @@ namespace Fundonote_EFCore
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.AddDbContext<FundoContext>(options => options.UseSqlServer(Configuration.GetConnectionString("Fundoonotes")));
+            services.AddDbContext<FundoContext>(options => options.UseSqlServer(this.Configuration.GetConnectionString("Fundoonotes")));
             services.AddAuthentication(x =>
             {
                 x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
