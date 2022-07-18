@@ -42,7 +42,7 @@ namespace RepositoryLayer.Services
                 user.CreatedDate = DateTime.Now;
                 user.ModifiedDate = DateTime.Now;
 
-                this.fundoContext.Add(user);
+                this.fundoContext.Users.Add(user);
                 this.fundoContext.SaveChanges();
             }
             catch (Exception ex)
