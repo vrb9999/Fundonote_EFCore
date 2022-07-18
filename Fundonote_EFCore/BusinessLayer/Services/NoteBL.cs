@@ -28,5 +28,17 @@ namespace BusinessLayer.Services
                 throw ex;
             }
         }
+
+        public async Task<List<GetNoteResponse>> GetAllNote(int UserId)
+        {
+            try
+            {
+                return await this.noteRL.GetAllNote(UserId);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 }

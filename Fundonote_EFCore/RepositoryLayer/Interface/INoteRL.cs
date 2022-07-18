@@ -9,5 +9,7 @@
     public interface INoteRL
     {
         Task AddNote(int UserId, NotePostModel notePostModel);
+
+        Task<List<GetNoteResponse>> GetAllNote(int UserId);
     }
 }
