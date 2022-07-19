@@ -57,11 +57,40 @@
                     this.logger.LogInfo($"No Notes Exists At Moment!! UserId = {userId}");
                     return this.BadRequest(new { sucess = false, Message = "You Dont Have Any Notes!!" });
                 }
+
                 this.logger.LogInfo($"All Notes Retrieved Successfully UserId = {userId}");
                 return this.Ok(new { sucess = true, Message = "Notes Data Retrieved successfully...", data = NoteData });
             }
             catch (Exception ex)
             {
+                throw ex;
+            }
+        }
+
+        [HttpPut("UpdateNote/{NoteId}")]
+        public async Task<IActionResult> UpdateNote(int NoteId, UpdateNoteModel updateNoteModel)
+        {
+            try
+            {
+                var userId = User.Claims.FirstOrDefault(x => x.Type.ToString().Equals("UserId", StringComparison.InvariantCultureIgnoreCase));
+                int UserId = Int32.Parse(userId.Value);
+                if (updateNoteModel.Title == "string" && updateNoteModel.Description == "string" && updateNoteModel.Bgcolor == "string")
+                {
+                    return this.BadRequest(new { sucess = false, Message = "Please Provide Valid Fields for Note!!" });
+                }
+
+                await this.noteBL.UpdateNote(UserId, NoteId, updateNoteModel);
+                this.logger.LogInfo($"Note Updates Successfully NoteId={NoteId}|UserId = {userId}");
+                return Ok(new { sucess = true, Message = $"NoteId {NoteId} Updated Successfully..." });
+            }
+            catch (Exception ex)
+            {
+                if (ex.Message == "Note Does Not Exists!!")
+                {
+                    this.logger.LogInfo($"No Notes Exists at Moment!!");
+                    return this.BadRequest(new { sucess = false, Message = $"NoteId {NoteId} Does not Exists!!" });
+                }
+
                 throw ex;
             }
         }

@@ -38,9 +38,14 @@ namespace Fundonote_EFCore.Controllers
         {
             try
             {
-                this.logger.LogInfo($"User Registration Email : {userPostModel.Email}");
-                this.userBL.AddUser(userPostModel);
-                return this.Ok(new { success = true, Message = "User Registration Sucessfull" });
+                if (userPostModel.FirstName != "Firstname" && userPostModel.LastName != "Lastname" && userPostModel.Email != "sample@gmail.com" && userPostModel.Password != "Password@123")
+                {
+                    this.logger.LogInfo($"User Registration Email : {userPostModel.Email}");
+                    this.userBL.AddUser(userPostModel);
+                    return this.Ok(new { success = true, Message = "User Registration Sucessfull" });
+                }
+
+                return this.BadRequest(new { success = false, message = "Entered details are same as default one" });
             }
             catch (Exception ex)
             {
@@ -71,9 +76,14 @@ namespace Fundonote_EFCore.Controllers
         {
             try
             {
-                this.logger.LogInfo($"User cred Email : {userLoginModel.Email}");
-                string token = this.userBL.LoginUser(userLoginModel);
-                return this.Ok(new { success = true, Message = "User Login Sucessfull", data = token });
+                if (userLoginModel.Email != "sample@gmail.com" && userLoginModel.Password != "Password@123")
+                {
+                    this.logger.LogInfo($"User cred Email : {userLoginModel.Email}");
+                    string token = this.userBL.LoginUser(userLoginModel);
+                    return this.Ok(new { success = true, Message = "User Login Sucessfull", data = token });
+                }
+
+                return this.BadRequest(new { success = false, message = "Wrong Credentials" });
             }
             catch (Exception ex)
             {
@@ -111,21 +121,26 @@ namespace Fundonote_EFCore.Controllers
         {
             try
             {
-                if (passwordModel.Password != passwordModel.CPassword)
+                if (passwordModel.Password != passwordModel.ConfirmPassword)
                 {
                     return this.BadRequest(new { success = false, message = "New Password and Confirm Password are not equal." });
                 }
 
-                var identity = User.Identity as ClaimsIdentity;
-                if (identity != null)
+                if (passwordModel.Password != "Password@123" && passwordModel.ConfirmPassword != "Password@123")
                 {
-                    IEnumerable<Claim> claims = identity.Claims;
-                    var email = claims.Where(p => p.Type == @"Email").FirstOrDefault()?.Value;
-                    this.userBL.ResetPassoword(email, passwordModel);
-                    return this.Ok(new { success = true, message = "Password Changed Sucessfully", email = $"{email}" });
+                    var identity = User.Identity as ClaimsIdentity;
+                    if (identity != null)
+                    {
+                        IEnumerable<Claim> claims = identity.Claims;
+                        var email = claims.Where(p => p.Type == @"Email").FirstOrDefault()?.Value;
+                        this.userBL.ResetPassoword(email, passwordModel);
+                        return this.Ok(new { success = true, message = "Password Changed Sucessfully", email = $"{email}" });
+                    }
+
+                    return this.BadRequest(new { success = false, message = "Password" });
                 }
 
-                return this.BadRequest(new { success = false, message = "Password" });
+                return this.BadRequest(new { success = false, message = "Entered details are same as default one" });
             }
             catch (Exception ex)
             {

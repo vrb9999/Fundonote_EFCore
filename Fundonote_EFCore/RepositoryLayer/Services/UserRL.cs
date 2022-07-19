@@ -208,7 +208,7 @@ namespace RepositoryLayer.Services
                     return false;
                 }
 
-                if (modelPassword.Password == modelPassword.CPassword)
+                if (modelPassword.Password == modelPassword.ConfirmPassword)
                 {
                     user.Password = modelPassword.Password;
                     this.fundoContext.SaveChanges();

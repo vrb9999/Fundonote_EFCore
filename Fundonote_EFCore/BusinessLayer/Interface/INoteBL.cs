@@ -11,5 +11,7 @@
         Task AddNote(int UserId, NotePostModel notePostModel);
 
         Task<List<GetNoteResponse>> GetAllNote(int UserId);
+
+        Task UpdateNote(int UserId, int NoteId, UpdateNoteModel updateNoteModel);
     }
 }
