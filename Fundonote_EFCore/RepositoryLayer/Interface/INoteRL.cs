@@ -15,5 +15,7 @@
         Task UpdateNote(int UserId, int NoteId, UpdateNoteModel updateNoteModel);
 
         Task<bool> DeleteNote(int userId, int noteId);
+
+        Task<bool> ArchiveNote(int userId, int noteId);
     }
 }

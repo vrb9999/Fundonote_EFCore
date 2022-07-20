@@ -115,5 +115,34 @@
                 throw ex;
             }
         }
+
+        [HttpPut("Archive/{NoteId}")]
+        public async Task<IActionResult> IsArchive(int NoteId)
+        {
+            try
+            {
+                var userId = User.Claims.FirstOrDefault(x => x.Type.ToString().Equals("UserId", StringComparison.InvariantCultureIgnoreCase));
+                int UserId = int.Parse(userId.Value);
+                var res = this.fundoContext.Notes.Where(x => x.NoteId == NoteId).FirstOrDefault();
+                if (res == null)
+                {
+                    return this.BadRequest(new { sucess = false, Message = "Note not Found" });
+
+                }
+
+                bool result = await this.noteBL.ArchiveNote(UserId, NoteId);
+                if (result == true)
+                {
+                    return this.Ok(new { sucess = true, Message = "Note Archive SuccessFully !!" });
+                }
+
+                return this.Ok(new { sucess = true, Message = "Note UnArchive SuccessFully !!" });
+            }
+            catch (Exception ex)
+            {
+                this.logger.LogError(ex.Message);
+                throw ex;
+            }
+        }
     }
 }

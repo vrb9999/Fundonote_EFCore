@@ -125,3 +125,9 @@
 2022-07-20 14:19:37.0469|INFO|NLogger.Services.LoggerManager|Note Updates Successfully NoteId=1|UserId = UserId: 1
 2022-07-20 14:19:46.7029|INFO|NLogger.Services.LoggerManager|All Notes Retrieved Successfully UserId = UserId: 1
 2022-07-20 14:20:04.7335|INFO|NLogger.Services.LoggerManager|No Notes Exists At Moment!! UserId = UserId: 1
+2022-07-20 17:18:47.0441|INFO|NLogger.Services.LoggerManager|User cred Email : vinay@gmail.com
+2022-07-20 17:19:28.5206|INFO|NLogger.Services.LoggerManager|Note Created Successfully UserId = UserId: 1
+2022-07-20 17:19:41.4823|INFO|NLogger.Services.LoggerManager|Note Created Successfully UserId = UserId: 1
+2022-07-20 17:19:57.4594|INFO|NLogger.Services.LoggerManager|Note Created Successfully UserId = UserId: 1
+2022-07-20 17:20:03.4871|INFO|NLogger.Services.LoggerManager|All Notes Retrieved Successfully UserId = UserId: 1
+2022-07-20 17:20:27.6966|INFO|NLogger.Services.LoggerManager|All Notes Retrieved Successfully UserId = UserId: 1
