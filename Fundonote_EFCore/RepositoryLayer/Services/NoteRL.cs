@@ -182,5 +182,36 @@
                 throw ex;
             }
         }
+
+        public async Task<bool> TrashNote(int userId, int noteId)
+        {
+            try
+            {
+                var flag = true;
+                var note = this.fundoContext.Notes.Where(x => x.UserId == userId && x.NoteId == noteId).FirstOrDefault();
+                if (note != null)
+                {
+                    if (note.IsTrash == false)
+                    {
+                        note.IsTrash = true;
+                    }
+                    else
+                    {
+                        note.IsTrash = false;
+                        flag = false;
+                    }
+
+                    this.fundoContext.Notes.Update(note);
+                    await this.fundoContext.SaveChangesAsync();
+                    return await Task.FromResult(flag);
+                }
+
+                return await Task.FromResult(!flag);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 }

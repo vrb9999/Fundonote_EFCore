@@ -88,5 +88,17 @@ namespace BusinessLayer.Services
                 throw ex;
             }
         }
+
+        public async Task<bool> TrashNote(int userId, int noteId)
+        {
+            try
+            {
+                return await this.noteRL.TrashNote(userId, noteId);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 }
