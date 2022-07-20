@@ -50,9 +50,9 @@
             try
             {
                 var userId = User.Claims.FirstOrDefault(x => x.Type.ToString().Equals("UserId", StringComparison.InvariantCultureIgnoreCase));
-                int UserId = Int32.Parse(userId.Value);
+                int UserId = int.Parse(userId.Value);
                 var NoteData = await this.noteBL.GetAllNote(UserId);
-                if (NoteData == null)
+                if (NoteData.Count == 0)
                 {
                     this.logger.LogInfo($"No Notes Exists At Moment!! UserId = {userId}");
                     return this.BadRequest(new { sucess = false, Message = "You Dont Have Any Notes!!" });
@@ -91,6 +91,27 @@
                     return this.BadRequest(new { sucess = false, Message = $"NoteId {NoteId} Does not Exists!!" });
                 }
 
+                throw ex;
+            }
+        }
+
+        [HttpDelete("DeleteNote/{NoteId}")]
+        public async Task<IActionResult> DeleteNote(int NoteId)
+        {
+            try
+            {
+                var userId = User.Claims.FirstOrDefault(x => x.Type.ToString().Equals("UserId", StringComparison.InvariantCultureIgnoreCase));
+                int UserId = int.Parse(userId.Value);
+                bool result = await this.noteBL.DeleteNote(UserId, NoteId);
+                if (result)
+                {
+                    return this.Ok(new { sucess = true, Message = "Notes Deleted successfully..." });
+                }
+
+                return this.BadRequest(new { sucess = false, Message = $"Note not found for NoteId : {NoteId}" });
+            }
+            catch (Exception ex)
+            {
                 throw ex;
             }
         }

@@ -13,5 +13,7 @@
         Task<List<GetNoteResponse>> GetAllNote(int UserId);
 
         Task UpdateNote(int UserId, int NoteId, UpdateNoteModel updateNoteModel);
+
+        Task<bool> DeleteNote(int UserId, int NoteId);
     }
 }

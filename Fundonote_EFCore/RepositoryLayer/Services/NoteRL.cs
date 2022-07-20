@@ -43,52 +43,32 @@
             }
         }
 
-        public Task ArchiveNote(int UserId, int NoteId)
-        {
-            throw new NotImplementedException();
-        }
-
         public async Task<List<GetNoteResponse>> GetAllNote(int UserId)
         {
             try
             {
-                return await fundoContext.Users
-                    .Where(u => u.UserId == UserId)
-                    .Join(fundoContext.Notes,
-               u => u.UserId,
-               n => n.UserId,
-               (u, n) => new GetNoteResponse
-               {
-                   NoteId = n.NoteId,
-                   UserId = u.UserId,
-                   Title = n.Title,
-                   Description = n.Description,
-                   Bgcolor = n.Bgcolor,
-                   FirstName = u.FirstName,
-                   LastName = u.LastName,
-                   Email = u.Email,
-                   CreatedDate = u.CreatedDate
-               }).ToListAsync();
+                return await this.fundoContext.Notes
+                .Where(n => n.UserId == UserId && n.IsTrash == false)
+                .Join(fundoContext.Users,
+                n => n.UserId,
+                u => u.UserId,
+                (n, u) => new GetNoteResponse
+                {
+                    NoteId = n.NoteId,
+                    UserId = n.UserId,
+                    Title = n.Title,
+                    Description = n.Description,
+                    Bgcolor = n.Bgcolor,
+                    FirstName = u.FirstName,
+                    LastName = u.LastName,
+                    Email = u.Email,
+                    CreatedDate = u.CreatedDate,
+                }).ToListAsync();
             }
             catch (Exception ex)
             {
                 throw ex;
             }
-        }
-
-        public Task PinNote(int UserId, int NoteId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task Remainder(int UserId, int NoteId, DateTime Remainder)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task Trash(int UserId, int NoteId)
-        {
-            throw new NotImplementedException();
         }
 
         public async Task UpdateNote(int userId, int noteId, UpdateNoteModel updateNoteModel)
@@ -100,6 +80,7 @@
                 {
                     throw new Exception("Note Does Not Exists!!");
                 }
+
                 updateNote.Title = updateNoteModel.Title;
                 updateNote.Description = updateNoteModel.Description;
                 updateNote.Bgcolor = updateNoteModel.Bgcolor;
@@ -117,9 +98,27 @@
             }
         }
 
-        public Task DeleteNote(int UserId, int NoteId)
+        public async Task<bool> DeleteNote(int userId, int noteId)
         {
-            throw new NotImplementedException();
+            var flag = false;
+            try
+            {
+                var result = this.fundoContext.Notes.Where(x => x.NoteId == noteId && x.UserId == userId).FirstOrDefault();
+                if (result != null)
+                {
+                    flag = true;
+                    result.IsTrash = true;
+                    this.fundoContext.Notes.Update(result);
+                    await this.fundoContext.SaveChangesAsync();
+                    return await Task.FromResult(flag);
+                }
+
+                return await Task.FromResult(flag);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
     }
 }

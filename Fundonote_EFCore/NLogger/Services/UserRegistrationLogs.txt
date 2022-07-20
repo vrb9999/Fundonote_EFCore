@@ -72,3 +72,56 @@
 2022-07-19 19:47:44.2214|INFO|NLogger.Services.LoggerManager|Note Updates Successfully NoteId=2|UserId = UserId: 1
 2022-07-19 19:47:53.0838|INFO|NLogger.Services.LoggerManager|All Notes Retrieved Successfully UserId = UserId: 1
 2022-07-19 19:48:04.0332|INFO|NLogger.Services.LoggerManager|No Notes Exists at Moment!!
+2022-07-19 19:56:52.7543|INFO|NLogger.Services.LoggerManager|All Notes Retrieved Successfully UserId = UserId: 1
+2022-07-19 19:57:09.7300|INFO|NLogger.Services.LoggerManager|Note Moved to Trash  NoteId:2 | UserId:1
+2022-07-19 19:57:23.9025|INFO|NLogger.Services.LoggerManager|All Notes Retrieved Successfully UserId = UserId: 1
+2022-07-19 20:00:38.3774|INFO|NLogger.Services.LoggerManager|All Notes Retrieved Successfully UserId = UserId: 1
+2022-07-19 20:01:50.7669|INFO|NLogger.Services.LoggerManager|All Notes Retrieved Successfully UserId = UserId: 1
+2022-07-20 10:09:46.6328|INFO|NLogger.Services.LoggerManager|User cred Email : vinay@gmail.com
+2022-07-20 10:10:09.6297|INFO|NLogger.Services.LoggerManager|Fetched all users
+2022-07-20 10:10:23.6754|INFO|NLogger.Services.LoggerManager|User cred Email : vinay@gmail.com
+2022-07-20 10:10:59.5010|INFO|NLogger.Services.LoggerManager|User cred Email : ajay@gmail.com
+2022-07-20 10:11:56.5044|INFO|NLogger.Services.LoggerManager|Note Created Successfully UserId = UserId: 2
+2022-07-20 10:12:03.0672|INFO|NLogger.Services.LoggerManager|All Notes Retrieved Successfully UserId = UserId: 2
+2022-07-20 10:12:49.9405|INFO|NLogger.Services.LoggerManager|Note Updates Successfully NoteId=3|UserId = UserId: 2
+2022-07-20 10:12:55.9322|INFO|NLogger.Services.LoggerManager|All Notes Retrieved Successfully UserId = UserId: 2
+2022-07-20 10:13:13.1750|ERROR|NLogger.Services.LoggerManager|Note Does Not Exists!! 2|UserId = UserId: 2
+2022-07-20 10:13:18.3802|INFO|NLogger.Services.LoggerManager|Note Archived Successfully NoteId=3|UserId = UserId: 2
+2022-07-20 10:15:02.9625|INFO|NLogger.Services.LoggerManager|User cred Email : vinay@gmail.com
+2022-07-20 10:15:34.4063|INFO|NLogger.Services.LoggerManager|All Notes Retrieved Successfully UserId = UserId: 1
+2022-07-20 10:15:53.2452|ERROR|NLogger.Services.LoggerManager|Note Does Not Exists!! 2|UserId = UserId: 1
+2022-07-20 10:16:22.1389|ERROR|NLogger.Services.LoggerManager|Note Does Not Exists!! 2|UserId = UserId: 1
+2022-07-20 10:17:39.9805|ERROR|NLogger.Services.LoggerManager|Note Does Not Exists!! 2|UserId = UserId: 1
+2022-07-20 11:17:05.8207|INFO|NLogger.Services.LoggerManager|User cred Email : vinay@gmail.com
+2022-07-20 11:17:25.1866|INFO|NLogger.Services.LoggerManager|All Notes Retrieved Successfully UserId = UserId: 1
+2022-07-20 11:21:40.7027|ERROR|NLogger.Services.LoggerManager|Note Does Not Exists!! 2|UserId = UserId: 1
+2022-07-20 13:28:26.9597|INFO|NLogger.Services.LoggerManager|User cred Email : vinay@gmail.com
+2022-07-20 13:28:48.0844|INFO|NLogger.Services.LoggerManager|All Notes Retrieved Successfully UserId = UserId: 1
+2022-07-20 13:33:13.5225|INFO|NLogger.Services.LoggerManager|User cred Email : vinay@gmail.com
+2022-07-20 13:33:40.3143|INFO|NLogger.Services.LoggerManager|All Notes Retrieved Successfully UserId = UserId: 1
+2022-07-20 13:33:48.5668|ERROR|NLogger.Services.LoggerManager|Note Does Not Exists!! 2|UserId = UserId: 1
+2022-07-20 13:34:19.7850|INFO|NLogger.Services.LoggerManager|Note Updates Successfully NoteId=2|UserId = UserId: 1
+2022-07-20 13:34:34.8602|INFO|NLogger.Services.LoggerManager|All Notes Retrieved Successfully UserId = UserId: 1
+2022-07-20 13:34:46.1423|ERROR|NLogger.Services.LoggerManager|Note Does Not Exists!! 2|UserId = UserId: 1
+2022-07-20 13:35:07.8152|ERROR|NLogger.Services.LoggerManager|Note Does Not Exists!! 2|UserId = UserId: 1
+2022-07-20 13:45:49.0131|INFO|NLogger.Services.LoggerManager|Note Created Successfully UserId = UserId: 1
+2022-07-20 13:45:58.0670|INFO|NLogger.Services.LoggerManager|All Notes Retrieved Successfully UserId = UserId: 1
+2022-07-20 13:46:27.4965|INFO|NLogger.Services.LoggerManager|No Notes Exists at Moment!!
+2022-07-20 13:46:33.9395|INFO|NLogger.Services.LoggerManager|Note Updates Successfully NoteId=1|UserId = UserId: 1
+2022-07-20 13:46:40.4072|INFO|NLogger.Services.LoggerManager|All Notes Retrieved Successfully UserId = UserId: 1
+2022-07-20 13:47:04.6727|INFO|NLogger.Services.LoggerManager|No Notes Exists At Moment!! UserId = UserId: 1
+2022-07-20 14:05:36.1087|INFO|NLogger.Services.LoggerManager|Note Created Successfully UserId = UserId: 1
+2022-07-20 14:05:43.2947|INFO|NLogger.Services.LoggerManager|All Notes Retrieved Successfully UserId = UserId: 1
+2022-07-20 14:06:17.2712|INFO|NLogger.Services.LoggerManager|Note Updates Successfully NoteId=1|UserId = UserId: 1
+2022-07-20 14:06:24.0886|INFO|NLogger.Services.LoggerManager|All Notes Retrieved Successfully UserId = UserId: 1
+2022-07-20 14:06:39.5328|INFO|NLogger.Services.LoggerManager|No Notes Exists At Moment!! UserId = UserId: 1
+2022-07-20 14:07:06.5179|INFO|NLogger.Services.LoggerManager|Note Created Successfully UserId = UserId: 1
+2022-07-20 14:07:09.7323|INFO|NLogger.Services.LoggerManager|All Notes Retrieved Successfully UserId = UserId: 1
+2022-07-20 14:10:35.5759|INFO|NLogger.Services.LoggerManager|No Notes Exists At Moment!! UserId = UserId: 1
+2022-07-20 14:10:44.4796|INFO|NLogger.Services.LoggerManager|Note Created Successfully UserId = UserId: 1
+2022-07-20 14:10:47.5936|INFO|NLogger.Services.LoggerManager|All Notes Retrieved Successfully UserId = UserId: 1
+2022-07-20 14:19:03.7813|INFO|NLogger.Services.LoggerManager|Note Created Successfully UserId = UserId: 1
+2022-07-20 14:19:11.5919|INFO|NLogger.Services.LoggerManager|All Notes Retrieved Successfully UserId = UserId: 1
+2022-07-20 14:19:37.0469|INFO|NLogger.Services.LoggerManager|Note Updates Successfully NoteId=1|UserId = UserId: 1
+2022-07-20 14:19:46.7029|INFO|NLogger.Services.LoggerManager|All Notes Retrieved Successfully UserId = UserId: 1
+2022-07-20 14:20:04.7335|INFO|NLogger.Services.LoggerManager|No Notes Exists At Moment!! UserId = UserId: 1
