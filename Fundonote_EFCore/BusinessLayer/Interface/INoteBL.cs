@@ -17,5 +17,7 @@
         Task<bool> DeleteNote(int UserId, int NoteId);
 
         Task<bool> ArchiveNote(int userId, int noteId);
+
+        Task<bool> PinNote(int userId, int noteId);
     }
 }
