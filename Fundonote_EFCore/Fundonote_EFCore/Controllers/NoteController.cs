@@ -33,7 +33,7 @@
             try
             {
                 var userId = User.Claims.FirstOrDefault(x => x.Type.ToString().Equals("UserId", StringComparison.InvariantCultureIgnoreCase));
-                int UserId = Int32.Parse(userId.Value);
+                int UserId = int.Parse(userId.Value);
                 await this.noteBL.AddNote(UserId, notePostModel);
                 this.logger.LogInfo($"Note Created Successfully UserId = {userId}");
                 return this.Ok(new { sucess = true, Message = "Note Created Successfully..." });
@@ -195,6 +195,36 @@
             }
             catch (Exception ex)
             {
+                throw ex;
+            }
+        }
+
+        [HttpPut("Remainder/{NoteId}")]
+        public async Task<IActionResult> Remainder(int NoteId, NoteReminderModel noteReminderModel)
+        {
+            try
+            {
+                var userId = User.Claims.FirstOrDefault(x => x.Type.ToString().Equals("UserId", StringComparison.InvariantCultureIgnoreCase));
+                int UserId = int.Parse(userId.Value);
+                var remainder = Convert.ToDateTime(noteReminderModel.Remainder);
+                var res = this.fundoContext.Notes.Where(x => x.NoteId == NoteId).FirstOrDefault();
+                if (res == null)
+                {
+                    return this.BadRequest(new { sucess = false, Message = "Note not Found" });
+
+                }
+
+                string result = await this.noteBL.Remainder(UserId, NoteId, remainder);
+                if (result != null)
+                {
+                    return this.Ok(new { sucess = true, Message = "Remainder set SuccessFully !! ", data = result });
+                }
+                return this.Ok(new { sucess = true, Message = "Remainder Deleted SuccessFully !!" });
+
+            }
+            catch (Exception ex)
+            {
+                this.logger.LogError(ex.Message);
                 throw ex;
             }
         }
