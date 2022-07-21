@@ -7,7 +7,6 @@
     using System.Text;
     using Microsoft.EntityFrameworkCore;
 
-    [Keyless]
     public class Label
     {
         [Key]
