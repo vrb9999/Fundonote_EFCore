@@ -27,9 +27,11 @@
         public bool IsTrash { get; set; }
 
         [Required]
-        [ForeignKey("Users")]
+        [ForeignKey("UserId")]
 
-        public int UserId { get; set; }
+        public virtual int? UserId { get; set; }
+
+        public virtual User User { get; set; }
 
         public DateTime RegisteredDate { get; set; }
 

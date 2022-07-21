@@ -20,5 +20,7 @@ namespace DatabaseLayer.Entities
         public DbSet<User> Users { get; set; }
 
         public DbSet<Note> Notes { get; set; }
+
+        public DbSet<Label> Labels { get; set; }
     }
 }

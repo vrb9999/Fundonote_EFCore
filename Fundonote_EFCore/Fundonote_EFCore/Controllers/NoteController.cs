@@ -219,8 +219,8 @@
                 {
                     return this.Ok(new { sucess = true, Message = "Remainder set SuccessFully !! ", data = result });
                 }
-                return this.Ok(new { sucess = true, Message = "Remainder Deleted SuccessFully !!" });
 
+                return this.Ok(new { sucess = true, Message = "Remainder Deleted SuccessFully !!" });
             }
             catch (Exception ex)
             {

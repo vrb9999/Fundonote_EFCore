@@ -55,7 +55,7 @@
                 (n, u) => new GetNoteResponse
                 {
                     NoteId = n.NoteId,
-                    UserId = n.UserId,
+                    UserId = (int)n.UserId,
                     Title = n.Title,
                     Description = n.Description,
                     Bgcolor = n.Bgcolor,

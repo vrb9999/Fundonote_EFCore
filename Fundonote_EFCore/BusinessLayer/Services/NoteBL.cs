@@ -1,13 +1,13 @@
-﻿using BusinessLayer.Interface;
-using DatabaseLayer.NoteModels;
-using RepositoryLayer.Interface;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace BusinessLayer.Services
+﻿namespace BusinessLayer.Services
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Text;
+    using System.Threading.Tasks;
+    using BusinessLayer.Interface;
+    using DatabaseLayer.NoteModels;
+    using RepositoryLayer.Interface;
+
     public class NoteBL : INoteBL
     {
         INoteRL noteRL;
