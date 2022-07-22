@@ -3,12 +3,16 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Text;
     using System.Threading.Tasks;
     using BusinessLayer.Interface;
     using DatabaseLayer.Entities;
     using DatabaseLayer.NoteModels;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
+    using Microsoft.Extensions.Caching.Distributed;
+    using Microsoft.Extensions.Caching.Memory;
+    using Newtonsoft.Json;
     using NLogger.Interface;
 
     [Authorize]
@@ -19,12 +23,16 @@
         private readonly ILoggerManager logger;
         private readonly FundoContext fundoContext;
         private readonly INoteBL noteBL;
+        private readonly IDistributedCache distributedCache;
+        private readonly IMemoryCache memoryCache;
 
-        public NoteController(FundoContext fundoContext, INoteBL noteBL, ILoggerManager logger)
+        public NoteController(FundoContext fundoContext, INoteBL noteBL, ILoggerManager logger, IDistributedCache distributedCache, IMemoryCache memoryCache)
         {
             this.fundoContext = fundoContext;
             this.noteBL = noteBL;
             this.logger = logger;
+            this.distributedCache = distributedCache;
+            this.memoryCache = memoryCache;
         }
 
         [HttpPost("AddNote")]
@@ -73,7 +81,7 @@
             try
             {
                 var userId = User.Claims.FirstOrDefault(x => x.Type.ToString().Equals("UserId", StringComparison.InvariantCultureIgnoreCase));
-                int UserId = Int32.Parse(userId.Value);
+                int UserId = int.Parse(userId.Value);
                 if (updateNoteModel.Title == "string" && updateNoteModel.Description == "string" && updateNoteModel.Bgcolor == "string")
                 {
                     return this.BadRequest(new { sucess = false, Message = "Please Provide Valid Fields for Note!!" });
@@ -105,7 +113,7 @@
                 bool result = await this.noteBL.DeleteNote(UserId, NoteId);
                 if (result)
                 {
-                    return this.Ok(new { sucess = true, Message = "Notes Deleted successfully..." });
+                    return this.Ok(new { sucess = true, Message = "Note Deleted successfully..." });
                 }
 
                 return this.BadRequest(new { sucess = false, Message = $"Note not found for NoteId : {NoteId}" });
@@ -225,6 +233,39 @@
             catch (Exception ex)
             {
                 this.logger.LogError(ex.Message);
+                throw ex;
+            }
+        }
+
+        [HttpGet("GetAllNoteUsingRedis")]
+        public async Task<IActionResult> GetAllNoteUsingRedis()
+        {
+            try
+            {
+                var CacheKey = "NoteList";
+                string SerializeNoteList;
+                var notelist = new List<GetNoteResponse>();
+                var redisnotelist = await distributedCache.GetAsync(CacheKey);
+                if (redisnotelist != null)
+                {
+                    SerializeNoteList = Encoding.UTF8.GetString(redisnotelist);
+                    notelist = JsonConvert.DeserializeObject<List<GetNoteResponse>>(SerializeNoteList);
+                }
+                else
+                {
+                    var userid = User.Claims.FirstOrDefault(x => x.Type.ToString().Equals("UserId", StringComparison.InvariantCultureIgnoreCase));
+                    int userId = int.Parse(userid.Value);
+                    notelist = await this.noteBL.GetAllNote(userId);
+                    SerializeNoteList = JsonConvert.SerializeObject(notelist);
+                    redisnotelist = Encoding.UTF8.GetBytes(SerializeNoteList);
+                    var option = new DistributedCacheEntryOptions().SetSlidingExpiration(TimeSpan.FromMinutes(20)).SetAbsoluteExpiration(TimeSpan.FromHours(6));
+                    await distributedCache.SetAsync(CacheKey, redisnotelist, option);
+                }
+
+                return this.Ok(new { success = true, message = $"All notes fetched successfully using Redis cache", data = notelist });
+            }
+            catch (Exception ex)
+            {
                 throw ex;
             }
         }

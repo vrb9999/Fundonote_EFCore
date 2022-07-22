@@ -10,7 +10,7 @@
 
     public class NoteBL : INoteBL
     {
-        INoteRL noteRL;
+        private readonly INoteRL noteRL;
 
         public NoteBL(INoteRL noteRL)
         {
