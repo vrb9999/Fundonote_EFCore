@@ -171,5 +171,38 @@
                 throw ex;
             }
         }
+
+        [HttpGet("GetAllLabelUsingRedis")]
+        public async Task<IActionResult> GetAllLabelUsingRedis()
+        {
+            try
+            {
+                var CacheKey = "LabelList";
+                string SerializeNoteList;
+                var labellist = new List<LabelResponseModel>();
+                var redislabellist = await distributedCache.GetAsync(CacheKey);
+                if (redislabellist != null)
+                {
+                    SerializeNoteList = Encoding.UTF8.GetString(redislabellist);
+                    labellist = JsonConvert.DeserializeObject<List<LabelResponseModel>>(SerializeNoteList);
+                }
+                else
+                {
+                    var userid = User.Claims.FirstOrDefault(x => x.Type.ToString().Equals("UserId", StringComparison.InvariantCultureIgnoreCase));
+                    int userId = int.Parse(userid.Value);
+                    labellist = await this.labelBL.GetAllLabel(userId);
+                    SerializeNoteList = JsonConvert.SerializeObject(labellist);
+                    redislabellist = Encoding.UTF8.GetBytes(SerializeNoteList);
+                    var option = new DistributedCacheEntryOptions().SetSlidingExpiration(TimeSpan.FromMinutes(20)).SetAbsoluteExpiration(TimeSpan.FromHours(6));
+                    await distributedCache.SetAsync(CacheKey, redislabellist, option);
+                }
+
+                return this.Ok(new { success = true, message = $"All labels fetched successfully using Redis cache", data = labellist });
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 }
