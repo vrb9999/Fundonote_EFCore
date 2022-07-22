@@ -129,5 +129,25 @@
                 throw ex;
             }
         }
+
+        public async Task<bool> DeleteLabel(int UserId, int NoteId, int LabelId)
+        {
+            try
+            {
+                var result = this.fundoContext.Labels.Where(x => x.NoteId == NoteId && x.UserId == UserId && x.LabelId == LabelId).FirstOrDefault();
+                if (result == null)
+                {
+                    return false;
+                }
+
+                this.fundoContext.Labels.Remove(result);
+                await this.fundoContext.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 }

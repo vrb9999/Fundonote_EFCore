@@ -150,5 +150,26 @@
                 throw ex;
             }
         }
+
+        [HttpDelete("DeleteLabel")]
+        public async Task<IActionResult> DeleteLabel(int NoteId, int LabelId)
+        {
+            try
+            {
+                var userId = User.Claims.FirstOrDefault(x => x.Type.ToString().Equals("UserId", StringComparison.InvariantCultureIgnoreCase));
+                int UserId = int.Parse(userId.Value);
+                bool result = await this.labelBL.DeleteLabel(UserId, NoteId, LabelId);
+                if (result)
+                {
+                    return this.Ok(new { success = true, Message = "Label Deleted successfully..." });
+                }
+
+                return this.BadRequest(new { success = false, Message = $"Label not found for NoteId : {NoteId}" });
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 }

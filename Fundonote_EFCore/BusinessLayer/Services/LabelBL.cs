@@ -64,5 +64,17 @@
                 throw ex;
             }
         }
+
+        public async Task<bool> DeleteLabel(int UserId, int NoteId, int LabelId)
+        {
+            try
+            {
+                return await this.labelRL.DeleteLabel(UserId, NoteId, LabelId);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 }

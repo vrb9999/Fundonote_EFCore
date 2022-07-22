@@ -15,5 +15,7 @@
         Task<List<LabelResponseModel>> GetLabelByNoteId(int UserId, int NoteId);
 
         Task<bool> UpdateLabel(int UserId, int NoteId, string LabelName);
+
+        Task<bool> DeleteLabel(int UserId, int NoteId, int LabelId);
     }
 }
