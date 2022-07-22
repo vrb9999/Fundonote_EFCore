@@ -74,6 +74,53 @@
             }
         }
 
+        [HttpGet("GetAllLabel")]
+        public async Task<IActionResult> GetAllLabel()
+        {
+            try
+            {
+                var userId = User.Claims.FirstOrDefault(x => x.Type.ToString().Equals("UserId", StringComparison.InvariantCultureIgnoreCase));
+                int UserId = int.Parse(userId.Value);
+                var LabelData = await this.labelBL.GetAllLabel(UserId);
+                if (LabelData.Count == 0)
+                {
+                    return this.BadRequest(new { success = false, Message = "You don't have any Notes!!" });
+                }
+
+                this.logger.LogInfo($"All Labels Retrieved Successfully UserId = {userId}");
+                return this.Ok(new { success = true, Message = "Labels Data Retrieved successfully...", data = LabelData });
+            }
+            catch (Exception ex)
+            {
+                this.logger.LogError(ex.Message);
+                throw ex;
+            }
+        }
+
+        [HttpGet("GetAllLabelByNoteId/{NoteId}")]
+        public async Task<IActionResult> GetAllLabelByNoteId(int NoteId)
+        {
+            try
+            {
+                var userId = User.Claims.FirstOrDefault(x => x.Type.ToString().Equals("UserId", StringComparison.InvariantCultureIgnoreCase));
+                int UserId = int.Parse(userId.Value);
+                var NoteData = await this.labelBL.GetLabelByNoteId(UserId, NoteId);
+                if (NoteData == null)
+                {
+                    this.logger.LogError($"No Labels exists for NoteId = {NoteId} | UserId = {userId}");
+                    return this.BadRequest(new { success = false, Message = "You don't have any Notes!!" });
+                }
+
+                this.logger.LogInfo($"All Labels retrieved successfully for NoteId = {NoteId} | UserId = {userId}");
+                return this.Ok(new { success = true, Message = "Labels Data Retrieved successfully...", data = NoteData });
+            }
+            catch (Exception ex)
+            {
+                this.logger.LogError(ex.Message);
+                throw ex;
+            }
+        }
+
         [HttpPut("UpdateLabel")]
         public async Task<IActionResult> UpdateLabel(int NoteId, string LabelName)
         {

@@ -10,6 +10,10 @@
     {
         Task AddLabel(int UserId, int NoteId, string LabelName);
 
+        Task<List<LabelResponseModel>> GetAllLabel(int UserId);
+
+        Task<List<LabelResponseModel>> GetLabelByNoteId(int UserId, int NoteId);
+
         Task<bool> UpdateLabel(int UserId, int NoteId, string LabelName);
     }
 }

@@ -29,6 +29,30 @@
             }
         }
 
+        public async Task<List<LabelResponseModel>> GetAllLabel(int UserId)
+        {
+            try
+            {
+                return await this.labelRL.GetAllLabel(UserId);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<List<LabelResponseModel>> GetLabelByNoteId(int UserId, int NoteId)
+        {
+            try
+            {
+                return await this.labelRL.GetLabelByNoteId(UserId, NoteId);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
         public async Task<bool> UpdateLabel(int UserId, int NoteId, string LabelName)
         {
             try

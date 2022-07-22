@@ -41,6 +41,75 @@
             }
         }
 
+        public async Task<List<LabelResponseModel>> GetAllLabel(int UserId)
+        {
+            try
+            {
+                var label = fundoContext.Labels.FirstOrDefault(u => u.UserId == UserId);
+                if (label == null)
+                {
+                    return null;
+                }
+
+                var res = await (from user in fundoContext.Users
+                                 join notes in fundoContext.Notes on user.UserId equals UserId
+                                 join labels in fundoContext.Labels on notes.NoteId equals labels.NoteId
+                                 where labels.UserId == UserId
+                                 select new LabelResponseModel
+                                 {
+                                     LabelId = labels.LabelId,
+                                     UserId = UserId,
+                                     NoteId = notes.NoteId,
+                                     Title = notes.Title,
+                                     FirstName = user.FirstName,
+                                     LastName = user.LastName,
+                                     Email = user.Email,
+                                     Description = notes.Description,
+                                     LabelName = labels.LabelName,
+                                 }).ToListAsync();
+                return res;
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<List<LabelResponseModel>> GetLabelByNoteId(int UserId, int NoteId)
+        {
+            try
+            {
+                var label = this.fundoContext.Labels.FirstOrDefault(x => x.UserId == UserId);
+                if (label == null)
+                {
+                    return null;
+                }
+
+                var result = await (from user in fundoContext.Users
+                                    join notes in fundoContext.Notes on user.UserId equals UserId //where notes.NoteId == NoteId
+                                    join labels in fundoContext.Labels on notes.NoteId equals labels.NoteId
+                                    where labels.NoteId == NoteId
+                                    select new LabelResponseModel
+                                    {
+                                        LabelId = labels.LabelId,
+                                        UserId = UserId,
+                                        NoteId = notes.NoteId,
+                                        Title = notes.Title,
+                                        FirstName = user.FirstName,
+                                        LastName = user.LastName,
+                                        Email = user.Email,
+                                        Description = notes.Description,
+                                        LabelName = labels.LabelName,
+                                    }).ToListAsync();
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
         public async Task<bool> UpdateLabel(int UserId, int NoteId, string LabelName)
         {
             try
