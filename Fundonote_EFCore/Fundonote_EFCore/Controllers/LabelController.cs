@@ -73,5 +73,35 @@
                 throw ex;
             }
         }
+
+        [HttpPut("UpdateLabel")]
+        public async Task<IActionResult> UpdateLabel(int NoteId, string LabelName)
+        {
+            try
+            {
+                var userId = User.Claims.FirstOrDefault(x => x.Type.ToString().Equals("UserId", StringComparison.InvariantCultureIgnoreCase));
+                int UserId = int.Parse(userId.Value);
+                var label = this.fundoContext.Labels.FirstOrDefault(x => x.NoteId == NoteId);
+                if (label == null)
+                {
+                    return this.BadRequest(new { success = false, Message = $"Label not found for NoteId: {NoteId}" });
+                }
+
+                var labelName = this.fundoContext.Labels.FirstOrDefault(x => x.LabelName == LabelName);
+                if (labelName == null)
+                {
+                    await this.labelBL.UpdateLabel(UserId, NoteId, LabelName);
+                    this.logger.LogInfo($"Label Updated Successfully for NoteId={NoteId}|UserId = {userId}");
+                    return Ok(new { success = true, Message = "Label Updated Successfully..." });
+                }
+
+                return this.BadRequest(new { success = false, Message = "Label with name already exsists" });
+            }
+            catch (Exception ex)
+            {
+                this.logger.LogError(ex.Message);
+                throw ex;
+            }
+        }
     }
 }

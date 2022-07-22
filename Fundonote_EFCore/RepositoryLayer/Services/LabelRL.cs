@@ -40,5 +40,25 @@
                 throw ex;
             }
         }
+
+        public async Task<bool> UpdateLabel(int UserId, int NoteId, string LabelName)
+        {
+            try
+            {
+                var label = fundoContext.Labels.FirstOrDefault(u => u.UserId == UserId && u.NoteId == NoteId);
+                if (label == null)
+                {
+                    return false;
+                }
+
+                label.LabelName = LabelName;
+                await fundoContext.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 }

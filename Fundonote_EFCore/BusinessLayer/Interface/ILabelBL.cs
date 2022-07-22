@@ -9,5 +9,7 @@
     public interface ILabelBL
     {
         Task AddLabel(int UserId, int NoteId, string LabelName);
+
+        Task<bool> UpdateLabel(int UserId, int NoteId, string LabelName);
     }
 }
